@@ -16,4 +16,4 @@ The five questions are the first five steps of the build method in Auny's vault,
 
 ## The bot
 
-`worker/` is a Cloudflare Worker on Workers AI (`@cf/meta/llama-3.1-8b-instruct-fast`, free tier). `POST /plan` with the five answers returns a one-page build plan: name, finish line, must-dos as tests, angle, box, build order, proof walk, what will sink it, and the first message to paste to your agent. Live at `https://wat-we-building-bot.aunysillyme.workers.dev`. Deploy with `cd worker && npx wrangler deploy`.
+`worker/` is a Cloudflare Worker on Workers AI (`@cf/meta/llama-3.1-8b-instruct-fast`, free tier). `POST /plan` with the five answers returns a one-page build plan: name, finish line, must-dos as tests, angle, box, build order, proof walk, what will sink it, and the first message to paste to your agent. Live at `https://wat-we-building-bot.aunysillyme.workers.dev`. `POST /build` with the brief returns one self-contained HTML file built to it (Llama 3.3 70B, 8B fallback), which the page renders in a sandboxed iframe with download. Deploy with `cd worker && npx wrangler deploy`.
