@@ -8,11 +8,11 @@
 <meta property="og:title" content="wat we building?">
 <meta property="og:description" content="Five questions before the AI builds. Answer them, copy the brief, ship the thing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
   --cream:#FAF5EE;--cream-2:#F0E6D6;--navy:#0B1121;--navy-2:#151F38;--red:#8B1E2D;--red-2:#6E1522;--red-soft:#F3DCDF;--ink:#1a1a1a;--muted:#5A5F6E;--line:#D9D0C3;
-  --display:"Bricolage Grotesque",Inter,system-ui,sans-serif;--body:Inter,system-ui,-apple-system,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --display:"Archivo Black",Inter,system-ui,sans-serif;--body:Inter,system-ui,-apple-system,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -21,7 +21,7 @@ body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:
 header{padding-block:40px 24px}
 .brand{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .brand a{color:var(--red);text-decoration:none}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,9vw,96px);line-height:.95;letter-spacing:-.03em;color:var(--navy);margin:14px 0 12px;text-wrap:balance}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,8vw,84px);line-height:.98;letter-spacing:-.02em;text-transform:lowercase;color:var(--navy);margin:14px 0 12px;text-wrap:balance}
 h1 span{color:var(--red)}
 .lede{max-width:58ch;font-size:18px;color:var(--muted);margin:0}
 .track{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:26px 0 8px}
@@ -31,7 +31,7 @@ h1 span{color:var(--red)}
 .stepline{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
 .panel{background:var(--navy);color:var(--cream);border-radius:14px;padding:28px 28px 24px;box-shadow:0 18px 50px -30px rgba(11,17,33,.6)}
 .panel .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#C9A3A9}
-.panel h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,4.6vw,40px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+.panel h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,4.6vw,40px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
 .panel .why{color:#C7CCD9;margin:0 0 18px;max-width:62ch}
 .panel .ex{font-family:var(--mono);font-size:13px;color:#9AA3B8;margin:0 0 8px}
 .panel .ex b{color:var(--cream);font-weight:500}
@@ -41,7 +41,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--red)}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
 .hint{font-size:14px;color:#9AA3B8}
 .btns{display:flex;gap:8px}
-.btn{all:unset;cursor:pointer;font-family:var(--display);font-weight:800;font-size:16px;padding:12px 20px;border-radius:10px;background:var(--red);color:#fff;letter-spacing:-.01em}
+.btn{all:unset;cursor:pointer;font-family:var(--body);font-weight:600;font-size:16px;padding:12px 20px;border-radius:10px;background:var(--red);color:#fff;letter-spacing:-.01em}
 .btn:hover{background:var(--red-2)}
 .btn.ghost{background:transparent;color:var(--cream);border:2px solid var(--navy-2)}
 .btn.ghost:hover{border-color:#3A4870}
@@ -51,18 +51,36 @@ textarea:focus,input:focus{outline:none;border-color:var(--red)}
 .btn[disabled]{opacity:.4;cursor:default}
 section{display:none}section.active{display:block}
 .brief{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px}
-.brief h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
+.brief h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
 .brief .sub{color:var(--muted);margin:0 0 16px}
 pre#out{font-family:var(--mono);font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;background:var(--cream);border-radius:10px;padding:18px;margin:0;color:var(--ink);max-height:60vh;overflow:auto}
 .steps5{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .steps5 li{background:var(--cream-2);border-radius:10px;padding:12px;font-size:13px;line-height:1.35}
-.steps5 li b{display:block;font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy);margin-bottom:4px}
+.steps5 li b{display:block;font-family:var(--body);font-weight:600;font-size:15px;color:var(--navy);margin-bottom:4px}
 .steps5 li .n{font-family:var(--mono);font-size:11px;color:var(--red)}
 footer{margin-top:40px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer a{color:var(--red)}
 .red{color:var(--red)}
 @media(max-width:640px){.panel{padding:22px 18px}.steps5{grid-template-columns:1fr 1fr}.btns{width:100%}.btn{flex:1;text-align:center}}
 @media(prefers-reduced-motion:no-preference){section.active{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+.sink{background:var(--red);color:#fff;border-radius:8px;padding:10px 14px;margin:0 0 16px;font-size:15px;line-height:1.45}
+.sink b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px;color:#F6C9CF}
+.sink code{font-family:var(--mono);font-size:13px;background:rgba(0,0,0,.25);padding:1px 6px;border-radius:4px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.topbar .stepline{margin:0}
+.linkbtn{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);border-bottom:1px solid var(--red);padding-bottom:1px}
+.linkbtn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.after h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
+.after .sub{color:var(--muted);margin:0 0 18px;max-width:60ch}
+.moves{display:grid;gap:14px}
+.move{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.move h3{grid-column:1/-1;margin:0;font-family:var(--body);font-weight:600;font-size:17px;color:var(--navy)}
+.move .r{border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.move .r b{display:block;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.move .r.bad{background:var(--red-soft);color:var(--red-2)}
+.move .r.good{background:var(--cream-2);color:var(--ink)}
+.move .r.good b{color:var(--navy)}
+@media(max-width:640px){.move{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -74,7 +92,7 @@ footer a{color:var(--red)}
 </header>
 
 <div class="track" id="track"><i></i><i></i><i></i><i></i><i></i></div>
-<div class="stepline" id="stepline">question 1 of 5</div>
+<div class="topbar"><div class="stepline" id="stepline">question 1 of 5</div><button class="linkbtn" id="sampleBtn">show me a filled one</button></div>
 
 <div id="steps"></div>
 
@@ -95,6 +113,21 @@ footer a{color:var(--red)}
     <li><span class="n">04</span><b>The box</b>Stack, and what it's not allowed to need.</li>
     <li><span class="n">05</span><b>Proof</b>What you open cold and do to call it working.</li>
   </ol>
+  <div class="bar" style="justify-content:flex-end"><button class="btn light" id="afterBtn">Next: after the prompt</button></div>
+</section>
+
+<section id="after">
+  <div class="after">
+    <h2>after the prompt</h2>
+    <p class="sub">The brief gets you a good first message. The build still sinks in the replies. Four moves for while the agent is working, each with the reply that sinks it and the one that ships.</p>
+    <div class="moves">
+      <div class="move"><h3>1. Read every "done" as a claim, not a fact.</h3><div class="r bad"><b>sinks it</b>Built the login form. Also added signup, password reset and a dashboard so it feels complete.</div><div class="r good"><b>ships</b>Built the login form at /login. Nothing else added. Screenshot attached.</div></div>
+      <div class="move"><h3>2. "No results" proves nothing until the search actually ran.</h3><div class="r bad"><b>sinks it</b>Searched the codebase, no references to the old name. Safe to delete.</div><div class="r good"><b>ships</b>0 hits for old_name from the repo root. Control: a name I know exists returned 41 hits, so the search ran. Safe to delete.</div></div>
+      <div class="move"><h3>3. Two failed fixes on one bug means stop and measure.</h3><div class="r bad"><b>sinks it</b>Still failing. Let me try one more approach.</div><div class="r good"><b>ships</b>Two fixes have not moved this. Stopping. Adding a log at each stage and running it 20 times to see where it drops.</div></div>
+      <div class="move"><h3>4. "Deployed" means open the URL, not read the message.</h3><div class="r bad"><b>sinks it</b>Deployed successfully! Your site is live.</div><div class="r good"><b>ships</b>Deploy finished. GET on the live URL returned 200 with the new title, 3 seconds ago. It is live.</div></div>
+    </div>
+    <div class="bar"><span class="hint" style="color:var(--muted)">Paste the brief, then hold the agent to these four.</span><div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="backBrief">Back to brief</button><button class="btn" id="copyBtn2">Copy brief</button></div></div>
+  </div>
 </section>
 
 <footer><span>Built live in 30 min for CampAI S2E15 with Claude Code. No accounts, nothing leaves your browser.</span><a href="https://github.com/aunysillyme/wat-we-building" target="_blank" rel="noopener">source</a></footer>
@@ -102,11 +135,11 @@ footer a{color:var(--red)}
 
 <script>
 const Q=[
-{k:"01 · finish line",h:"What exists when it's done?",why:"One sentence. A link, a file, a screen somebody uses. If you can't name it, the AI can't reach it, so it stops wherever it feels like and calls that done.",ex:"<b>e.g.</b> A one-page site at /tracker where I add a habit, refresh, and it's still there.",ph:"When it's done, there is a…",type:"input"},
-{k:"02 · must-dos",h:"What must it do? One per line.",why:"Every clause of the ask, as a list. This list is the test you walk again before you ship. Skipping it is how half a brief goes unbuilt and nobody notices.",ex:"<b>e.g.</b> add a habit · tick it off daily · survives refresh · works on my phone",ph:"add a habit\ntick it off each day\nsurvives a refresh\nworks on a phone",type:"area"},
-{k:"03 · angle",h:"What's the obvious version, and what actually goes wrong for the person using it?",why:"Everyone ships the obvious build. Read the ask as a symptom. The thing that fails in real life is the thing worth building.",ex:"<b>e.g.</b> Obvious: a checklist. What goes wrong: people quit on day 4 and the app just shows an empty box.",ph:"Obvious version: …\nWhat really goes wrong: …",type:"area"},
-{k:"04 · the box",h:"What are you building it with, and what is it not allowed to need?",why:"Pick the constraint first and let it delete options. One file, no framework, no login, no database: each rule you set is a bug you never ship.",ex:"<b>e.g.</b> One HTML file. No framework, no build step, no accounts. Saves to localStorage.",ph:"Stack: …\nNot allowed to need: …",type:"area"},
-{k:"05 · proof",h:"How will you know it works? What do you open cold and do?",why:"Tests prove the mechanism. Only using it proves the journey. Name the walk: open the link in a private window, do the thing, see the result. A feature you can't reach doesn't exist.",ex:"<b>e.g.</b> Private window, add 'water', close tab, reopen, 'water' is still there. Then on my phone.",ph:"Open …, then …, and I should see …",type:"area"}
+{k:"01 · finish line",h:"What exists when it's done?",why:"One sentence. A link, a file, a screen somebody uses. If you can't name it, the AI can't reach it, so it stops wherever it feels like and calls that done.",ex:"<b>e.g.</b> A one-page site at /tracker where I add a habit, refresh, and it's still there.",sink:"Saying <code>make me an app</code>. No finish line, so the agent picks one and calls it done.",ph:"When it's done, there is a…",type:"input"},
+{k:"02 · must-dos",h:"What must it do? One per line.",why:"Every clause of the ask, as a list. This list is the test you walk again before you ship. Skipping it is how half a brief goes unbuilt and nobody notices.",ex:"<b>e.g.</b> add a habit · tick it off daily · survives refresh · works on my phone",sink:"Keeping the ask in your head. Half the clauses never get built and nobody notices until a judge does.",ph:"add a habit\ntick it off each day\nsurvives a refresh\nworks on a phone",type:"area"},
+{k:"03 · angle",h:"What's the obvious version, and what actually goes wrong for the person using it?",why:"Everyone ships the obvious build. Read the ask as a symptom. The thing that fails in real life is the thing worth building.",ex:"<b>e.g.</b> Obvious: a checklist. What goes wrong: people quit on day 4 and the app just shows an empty box.",sink:"Building the literal words. Everyone ships that one, and it solves nothing the person actually hits.",ph:"Obvious version: …\nWhat really goes wrong: …",type:"area"},
+{k:"04 · the box",h:"What are you building it with, and what is it not allowed to need?",why:"Pick the constraint first and let it delete options. One file, no framework, no login, no database: each rule you set is a bug you never ship.",ex:"<b>e.g.</b> One HTML file. No framework, no build step, no accounts. Saves to localStorage.",sink:"Letting the agent pick the stack. You get a framework, a build step and a login you never asked for.",ph:"Stack: …\nNot allowed to need: …",type:"area"},
+{k:"05 · proof",h:"How will you know it works? What do you open cold and do?",why:"Tests prove the mechanism. Only using it proves the journey. Name the walk: open the link in a private window, do the thing, see the result. A feature you can't reach doesn't exist.",ex:"<b>e.g.</b> Private window, add 'water', close tab, reopen, 'water' is still there. Then on my phone.",sink:"Trusting <code>all tests pass</code>. Tests prove the mechanism. Only opening it cold proves the journey.",ph:"Open …, then …, and I should see …",type:"area"}
 ];
 const KEY='wwb.answers';
 let ans=[];try{ans=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){ans=[]}
@@ -115,7 +148,7 @@ const host=document.getElementById('steps');
 Q.forEach((q,i)=>{
   const s=document.createElement('section');s.id='q'+i;
   const field=q.type==='input'?`<input type="text" id="a${i}" placeholder="${q.ph}" autocomplete="off">`:`<textarea id="a${i}" placeholder="${q.ph.replace(/"/g,'&quot;')}"></textarea>`;
-  s.innerHTML=`<div class="panel"><div class="k">${q.k}</div><h2>${q.h}</h2><p class="why">${q.why}</p><p class="ex">${q.ex}</p>${field}
+  s.innerHTML=`<div class="panel"><div class="k">${q.k}</div><h2>${q.h}</h2><p class="why">${q.why}</p><p class="ex">${q.ex}</p><div class="sink"><b>sinks it</b>${q.sink}</div>${field}
   <div class="bar"><span class="hint" id="h${i}">Write it plain. Your AI reads this, not a judge.</span><div class="btns"><button class="btn ghost" data-prev ${i===0?'disabled':''}>Back</button><button class="btn" data-next>${i===Q.length-1?'Build the brief':'Next'}</button></div></div></div>`;
   host.appendChild(s);
   const el=s.querySelector('#a'+i);el.value=ans[i]||'';
@@ -161,6 +194,11 @@ Do this walk yourself, cold, before reporting. Tell me what you opened, what you
 }
 function finish(){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('result').classList.add('active');document.querySelectorAll('#track i').forEach(t=>t.className='done');document.getElementById('stepline').textContent='brief ready';document.getElementById('out').textContent=brief();window.scrollTo({top:0,behavior:'smooth'})}
 document.getElementById('editBtn').addEventListener('click',()=>go(0));
+const SAMPLE=["A one-page habit tracker at /tracker where I add a habit, tick it daily, refresh, and it is still there.","add a habit\ntick it off each day\nsurvives a refresh\nworks on my phone\nshows 3 sample habits on first load","Obvious version: a checklist with streaks.\nWhat really goes wrong: people miss day 4, see a broken streak, and quit. So a missed day should not zero anything, it should just show the week honestly.","One HTML file. No framework, no build step, no accounts, no database. Saves to localStorage.","Private window: add 'water', tick it, close the tab, reopen, 'water' is still ticked. Then the same on my phone."];
+document.getElementById('sampleBtn').addEventListener('click',()=>{ans=SAMPLE.slice();save();Q.forEach((q,i)=>document.getElementById('a'+i).value=ans[i]);finish()});
+document.getElementById('afterBtn').addEventListener('click',()=>{document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById('after').classList.add('active');document.getElementById('stepline').textContent='after the prompt';window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('backBrief').addEventListener('click',finish);
+document.getElementById('copyBtn2').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(brief());e.target.textContent='Copied'}catch(_){e.target.textContent='Select the brief text and copy'}});
 document.getElementById('copyBtn').addEventListener('click',async()=>{const c=document.getElementById('copied');try{await navigator.clipboard.writeText(brief());c.textContent='Copied. Paste it as your first message.'}catch(e){c.textContent='Select the text above and copy it.'}});
 document.getElementById('dlBtn').addEventListener('click',()=>{const b=new Blob([brief()],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='wat-we-building.md';document.body.appendChild(a);a.click();a.remove()});
 go(0);
