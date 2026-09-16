@@ -81,6 +81,15 @@ footer a{color:var(--red)}
 .move .r.good{background:var(--cream-2);color:var(--ink)}
 .move .r.good b{color:var(--navy)}
 @media(max-width:640px){.move{grid-template-columns:1fr}}
+.onepager{display:none;margin-top:16px;background:var(--navy);color:var(--cream);border-radius:14px;padding:22px 24px}
+.onepager.show{display:block}
+.onepager .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#C9A3A9;margin-bottom:8px}
+.onepager h1{font-size:clamp(28px,5vw,40px);color:var(--cream);margin:0 0 10px;text-transform:lowercase}
+.onepager h2{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#C9A3A9;margin:18px 0 6px}
+.onepager p,.onepager li{font-size:15px;line-height:1.5;margin:0 0 6px}
+.onepager ul,.onepager ol{margin:0;padding-left:20px}
+.onepager pre{font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-word;background:rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;margin:6px 0}
+.onepager .status{font-family:var(--mono);font-size:13px;color:#C7CCD9}
 </style>
 </head>
 <body>
@@ -105,6 +114,8 @@ footer a{color:var(--red)}
       <span class="hint" style="color:var(--muted)" id="copied"></span>
       <div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="editBtn">Edit answers</button><button class="btn light" id="dlBtn">Download .md</button><button class="btn" id="copyBtn">Copy brief</button></div>
     </div>
+    <div class="bar"><span class="hint" style="color:var(--muted)">Or let the bot turn your answers into a one-page build plan.</span><button class="btn" id="botBtn">Bot, write my one-pager</button></div>
+    <div class="onepager" id="onepager"><div class="k">one-pager · written by the bot from your five answers</div><div id="opBody" class="status">…</div><div class="bar"><span class="status" id="opModel"></span><button class="btn ghost" id="opCopy">Copy one-pager</button></div></div>
   </div>
   <ol class="steps5">
     <li><span class="n">01</span><b>Finish line</b>Name what exists when it's done.</li>
@@ -194,6 +205,17 @@ Do this walk yourself, cold, before reporting. Tell me what you opened, what you
 }
 function finish(){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('result').classList.add('active');document.querySelectorAll('#track i').forEach(t=>t.className='done');document.getElementById('stepline').textContent='brief ready';document.getElementById('out').textContent=brief();window.scrollTo({top:0,behavior:'smooth'})}
 document.getElementById('editBtn').addEventListener('click',()=>go(0));
+const BOT='https://wat-we-building-bot.aunysillyme.workers.dev/plan';let lastPlan='';
+function md(t){const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');let out='',inCode=false,list=null;const flush=()=>{if(list){out+=`</${list}>`;list=null}};
+for(const raw of t.split('\n')){const l=raw.trimEnd();if(l.startsWith('```')){flush();inCode=!inCode;out+=inCode?'<pre>':'</pre>';continue}if(inCode){out+=esc(raw)+'\n';continue}
+if(/^# /.test(l)){flush();out+=`<h1>${esc(l.slice(2))}</h1>`}else if(/^## /.test(l)){flush();out+=`<h2>${esc(l.slice(3))}</h2>`}
+else if(/^[-*] /.test(l)){if(list!=='ul'){flush();out+='<ul>';list='ul'}out+=`<li>${esc(l.slice(2))}</li>`}
+else if(/^\d+[.)] /.test(l)){if(list!=='ol'){flush();out+='<ol>';list='ol'}out+=`<li>${esc(l.replace(/^\d+[.)] /,''))}</li>`}
+else if(l.trim()){flush();out+=`<p>${esc(l)}</p>`}else flush()}flush();return out}
+document.getElementById('botBtn').addEventListener('click',async e=>{const box=document.getElementById('onepager'),b=document.getElementById('opBody');box.classList.add('show');b.className='status';b.textContent='Thinking… (Workers AI, usually 3 to 8 seconds)';e.target.disabled=true;
+try{const r=await fetch(BOT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({answers:ans})});const d=await r.json();if(!r.ok||d.error)throw new Error(d.error||('HTTP '+r.status));lastPlan=d.plan;b.className='';b.innerHTML=md(d.plan);document.getElementById('opModel').textContent=d.model||''}
+catch(err){b.className='status';b.textContent='The bot did not answer: '+err.message+'. Your brief above still works; paste that.'}e.target.disabled=false});
+document.getElementById('opCopy').addEventListener('click',async e=>{if(!lastPlan)return;try{await navigator.clipboard.writeText(lastPlan);e.target.textContent='Copied'}catch(_){e.target.textContent='Select and copy'}});
 const SAMPLE=["A one-page habit tracker at /tracker where I add a habit, tick it daily, refresh, and it is still there.","add a habit\ntick it off each day\nsurvives a refresh\nworks on my phone\nshows 3 sample habits on first load","Obvious version: a checklist with streaks.\nWhat really goes wrong: people miss day 4, see a broken streak, and quit. So a missed day should not zero anything, it should just show the week honestly.","One HTML file. No framework, no build step, no accounts, no database. Saves to localStorage.","Private window: add 'water', tick it, close the tab, reopen, 'water' is still ticked. Then the same on my phone."];
 document.getElementById('sampleBtn').addEventListener('click',()=>{ans=SAMPLE.slice();save();Q.forEach((q,i)=>document.getElementById('a'+i).value=ans[i]);finish()});
 document.getElementById('afterBtn').addEventListener('click',()=>{document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById('after').classList.add('active');document.getElementById('stepline').textContent='after the prompt';window.scrollTo({top:0,behavior:'smooth'})});
