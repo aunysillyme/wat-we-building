@@ -70,17 +70,6 @@ footer a{color:var(--red)}
 .topbar .stepline{margin:0}
 .linkbtn{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);border-bottom:1px solid var(--red);padding-bottom:1px}
 .linkbtn:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.after h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
-.after .sub{color:var(--muted);margin:0 0 18px;max-width:60ch}
-.moves{display:grid;gap:14px}
-.move{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.move h3{grid-column:1/-1;margin:0;font-family:var(--body);font-weight:600;font-size:17px;color:var(--navy)}
-.move .r{border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
-.move .r b{display:block;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.move .r.bad{background:var(--red-soft);color:var(--red-2)}
-.move .r.good{background:var(--cream-2);color:var(--ink)}
-.move .r.good b{color:var(--navy)}
-@media(max-width:640px){.move{grid-template-columns:1fr}}
 .onepager{display:none;margin-top:16px;background:var(--navy);color:var(--cream);border-radius:14px;padding:22px 24px}
 .onepager.show{display:block}
 .onepager .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#C9A3A9;margin-bottom:8px}
@@ -90,6 +79,16 @@ footer a{color:var(--red)}
 .onepager ul,.onepager ol{margin:0;padding-left:20px}
 .onepager pre{font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-word;background:rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;margin:6px 0}
 .onepager .status{font-family:var(--mono);font-size:13px;color:#C7CCD9}
+.agent{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.agent h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
+.agent .sub{color:var(--muted);margin:0 0 16px;max-width:60ch}
+.agent .status{font-family:var(--mono);font-size:13px;color:var(--muted);margin:10px 0}
+.agent .status.err{color:var(--red)}
+.preview{display:none;margin-top:14px;border:2px solid var(--navy);border-radius:12px;overflow:hidden;background:#fff}
+.preview.show{display:block}
+.preview iframe{width:100%;height:70vh;border:0;display:block;background:#fff}
+.walk{margin-top:14px;padding:12px 16px;background:var(--red-soft);border-left:3px solid var(--red);border-radius:0 8px 8px 0;font-size:15px}
+.walk b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -124,20 +123,19 @@ footer a{color:var(--red)}
     <li><span class="n">04</span><b>The box</b>Stack, and what it's not allowed to need.</li>
     <li><span class="n">05</span><b>Proof</b>What you open cold and do to call it working.</li>
   </ol>
-  <div class="bar" style="justify-content:flex-end"><button class="btn light" id="afterBtn">Next: after the prompt</button></div>
+  <div class="bar" style="justify-content:flex-end"><button class="btn" id="toAgentBtn">Next step: let the agent build it</button></div>
 </section>
 
-<section id="after">
-  <div class="after">
-    <h2>after the prompt</h2>
-    <p class="sub">The brief gets you a good first message. The build still sinks in the replies. Four moves for while the agent is working, each with the reply that sinks it and the one that ships.</p>
-    <div class="moves">
-      <div class="move"><h3>1. Read every "done" as a claim, not a fact.</h3><div class="r bad"><b>sinks it</b>Built the login form. Also added signup, password reset and a dashboard so it feels complete.</div><div class="r good"><b>ships</b>Built the login form at /login. Nothing else added. Screenshot attached.</div></div>
-      <div class="move"><h3>2. "No results" proves nothing until the search actually ran.</h3><div class="r bad"><b>sinks it</b>Searched the codebase, no references to the old name. Safe to delete.</div><div class="r good"><b>ships</b>0 hits for old_name from the repo root. Control: a name I know exists returned 41 hits, so the search ran. Safe to delete.</div></div>
-      <div class="move"><h3>3. Two failed fixes on one bug means stop and measure.</h3><div class="r bad"><b>sinks it</b>Still failing. Let me try one more approach.</div><div class="r good"><b>ships</b>Two fixes have not moved this. Stopping. Adding a log at each stage and running it 20 times to see where it drops.</div></div>
-      <div class="move"><h3>4. "Deployed" means open the URL, not read the message.</h3><div class="r bad"><b>sinks it</b>Deployed successfully! Your site is live.</div><div class="r good"><b>ships</b>Deploy finished. GET on the live URL returned 200 with the new title, 3 seconds ago. It is live.</div></div>
-    </div>
-    <div class="bar"><span class="hint" style="color:var(--muted)">Paste the brief, then hold the agent to these four.</span><div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="backBrief">Back to brief</button><button class="btn" id="copyBtn2">Copy brief</button></div></div>
+
+<section id="agent">
+  <div class="agent">
+    <h2>the agent builds it</h2>
+    <p class="sub">Your brief goes to a coding agent (Llama 3.3 70B on Cloudflare Workers AI). It returns one HTML file, built to the brief and nothing more. Then you do your proof walk on it, because the agent saying "done" is a claim, not a fact.</p>
+    <div class="bar" style="margin-top:0"><span class="hint" style="color:var(--muted)">Takes 20 to 60 seconds. Free, no login.</span><div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="agentBack">Back to brief</button><button class="btn" id="buildBtn">Build it from my brief</button></div></div>
+    <div class="status" id="buildStatus"></div>
+    <div class="preview" id="preview"><iframe id="frame" sandbox="allow-scripts allow-forms allow-modals" title="what the agent built"></iframe></div>
+    <div class="walk" id="walkBox" style="display:none"><b>your proof walk, from question 5</b><span id="walkTxt"></span></div>
+    <div class="bar" id="buildActions" style="display:none"><span class="status" id="buildModel"></span><div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="openBtn">Open full size</button><button class="btn light" id="dlHtml">Download index.html</button><button class="btn" id="rebuildBtn">Build again</button></div></div>
   </div>
 </section>
 
@@ -218,11 +216,21 @@ catch(err){b.className='status';b.textContent='The bot did not answer: '+err.mes
 document.getElementById('opCopy').addEventListener('click',async e=>{if(!lastPlan)return;try{await navigator.clipboard.writeText(lastPlan);e.target.textContent='Copied'}catch(_){e.target.textContent='Select and copy'}});
 const SAMPLE=["A one-page habit tracker at /tracker where I add a habit, tick it daily, refresh, and it is still there.","add a habit\ntick it off each day\nsurvives a refresh\nworks on my phone\nshows 3 sample habits on first load","Obvious version: a checklist with streaks.\nWhat really goes wrong: people miss day 4, see a broken streak, and quit. So a missed day should not zero anything, it should just show the week honestly.","One HTML file. No framework, no build step, no accounts, no database. Saves to localStorage.","Private window: add 'water', tick it, close the tab, reopen, 'water' is still ticked. Then the same on my phone."];
 document.getElementById('sampleBtn').addEventListener('click',()=>{ans=SAMPLE.slice();save();Q.forEach((q,i)=>document.getElementById('a'+i).value=ans[i]);finish()});
-document.getElementById('afterBtn').addEventListener('click',()=>{document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById('after').classList.add('active');document.getElementById('stepline').textContent='after the prompt';window.scrollTo({top:0,behavior:'smooth'})});
-document.getElementById('backBrief').addEventListener('click',finish);
-document.getElementById('copyBtn2').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(brief());e.target.textContent='Copied'}catch(_){e.target.textContent='Select the brief text and copy'}});
 document.getElementById('copyBtn').addEventListener('click',async()=>{const c=document.getElementById('copied');try{await navigator.clipboard.writeText(brief());c.textContent='Copied. Paste it as your first message.'}catch(e){c.textContent='Select the text above and copy it.'}});
 document.getElementById('dlBtn').addEventListener('click',()=>{const b=new Blob([brief()],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='wat-we-building.md';document.body.appendChild(a);a.click();a.remove()});
+
+const BUILD='https://wat-we-building-bot.aunysillyme.workers.dev/build';let lastHtml='';
+function showAgent(){document.querySelectorAll('section').forEach(x=>x.classList.remove('active'));document.getElementById('agent').classList.add('active');document.getElementById('stepline').textContent='next step: the agent builds';document.getElementById('walkTxt').textContent=' '+(ans[4]||'');window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('toAgentBtn').addEventListener('click',showAgent);
+document.getElementById('agentBack').addEventListener('click',finish);
+async function runBuild(){const st=document.getElementById('buildStatus'),pv=document.getElementById('preview'),bb=document.getElementById('buildBtn'),rb=document.getElementById('rebuildBtn');bb.disabled=true;rb.disabled=true;st.className='status';let n=0;st.textContent='Agent is building… 0s';const tick=setInterval(()=>{n++;st.textContent='Agent is building… '+n+'s'+(n>25?' (the 70B model is thinking, hang on)':'')},1000);
+try{const r=await fetch(BUILD,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief()})});const d=await r.json();if(!r.ok||d.error)throw new Error(d.error||('HTTP '+r.status));lastHtml=d.html;document.getElementById('frame').srcdoc=d.html;pv.classList.add('show');document.getElementById('walkBox').style.display='block';document.getElementById('buildActions').style.display='flex';document.getElementById('buildModel').textContent=d.lines+' lines · '+d.model;st.textContent='Built. Now walk it before you trust it.'}
+catch(err){st.className='status err';st.textContent='The agent did not deliver: '+err.message+'. Try again, or paste the brief into your own agent.'}
+clearInterval(tick);bb.disabled=false;rb.disabled=false}
+document.getElementById('buildBtn').addEventListener('click',runBuild);
+document.getElementById('rebuildBtn').addEventListener('click',runBuild);
+document.getElementById('dlHtml').addEventListener('click',()=>{if(!lastHtml)return;const b=new Blob([lastHtml],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='index.html';document.body.appendChild(a);a.click();a.remove()});
+document.getElementById('openBtn').addEventListener('click',()=>{if(!lastHtml)return;const b=new Blob([lastHtml],{type:'text/html'});window.open(URL.createObjectURL(b),'_blank')});
 go(0);
 </script>
 </body>
