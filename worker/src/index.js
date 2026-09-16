@@ -52,7 +52,7 @@ export default {
 
 const BUILD_SYSTEM = `You are a careful coding agent. You will receive a build brief written by a beginner. Build EXACTLY what the brief says, nothing more.
 Output ONE complete, self-contained HTML file and nothing else: no explanation, no markdown fences. Start with <!doctype html>.
-Rules: no external scripts, fonts or stylesheets; no frameworks; no network calls; all CSS and JS inline; works when opened as a local file; works at phone width; if the brief needs saving, use localStorage; show sample content on first load so it is not empty; every screen says what to do next; keep it under 300 lines.
+Rules: no external scripts, fonts or stylesheets; no frameworks; no network calls; all CSS and JS inline; works when opened as a local file; works at phone width; if the brief needs saving, use localStorage, but wrap every localStorage call in try/catch and keep working in memory when it throws (the preview sandbox blocks storage; the downloaded file allows it); show sample content on first load so it is not empty; every screen says what to do next; keep it under 300 lines.
 At the very top of the <body>, add a small fixed banner: "built by wat we building? from your brief · walk your proof before you trust it".
 Do not add features the brief did not ask for. If a must-do is unclear, build the simplest reading and note it in an HTML comment at the top.`;
 
