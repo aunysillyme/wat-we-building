@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>wat we building?</title>
+<meta name="description" content="Five questions to answer before your AI builds anything. Walk through them, get a build brief you can paste into any coding agent.">
+<meta property="og:title" content="wat we building?">
+<meta property="og:description" content="Five questions before the AI builds. Answer them, copy the brief, ship the thing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --cream:#FAF5EE;--cream-2:#F0E6D6;--navy:#0B1121;--navy-2:#151F38;--red:#8B1E2D;--red-2:#6E1522;--red-soft:#F3DCDF;--ink:#1a1a1a;--muted:#5A5F6E;--line:#D9D0C3;
+  --display:"Bricolage Grotesque",Inter,system-ui,sans-serif;--body:Inter,system-ui,-apple-system,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;padding-inline:20px;padding-block:0 56px;min-height:100vh}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-block:40px 24px}
+.brand{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.brand a{color:var(--red);text-decoration:none}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,9vw,96px);line-height:.95;letter-spacing:-.03em;color:var(--navy);margin:14px 0 12px;text-wrap:balance}
+h1 span{color:var(--red)}
+.lede{max-width:58ch;font-size:18px;color:var(--muted);margin:0}
+.track{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:26px 0 8px}
+.track i{display:block;height:6px;background:var(--cream-2);border-radius:3px}
+.track i.on{background:var(--red)}
+.track i.done{background:var(--navy)}
+.stepline{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+.panel{background:var(--navy);color:var(--cream);border-radius:14px;padding:28px 28px 24px;box-shadow:0 18px 50px -30px rgba(11,17,33,.6)}
+.panel .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#C9A3A9}
+.panel h2{font-family:var(--display);font-weight:800;font-size:clamp(26px,4.6vw,40px);line-height:1.05;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+.panel .why{color:#C7CCD9;margin:0 0 18px;max-width:62ch}
+.panel .ex{font-family:var(--mono);font-size:13px;color:#9AA3B8;margin:0 0 8px}
+.panel .ex b{color:var(--cream);font-weight:500}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;line-height:1.5;color:var(--ink);background:var(--cream);border:2px solid transparent;border-radius:10px;padding:14px 16px;resize:vertical}
+textarea{min-height:120px}
+textarea:focus,input:focus{outline:none;border-color:var(--red)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.hint{font-size:14px;color:#9AA3B8}
+.btns{display:flex;gap:8px}
+.btn{all:unset;cursor:pointer;font-family:var(--display);font-weight:800;font-size:16px;padding:12px 20px;border-radius:10px;background:var(--red);color:#fff;letter-spacing:-.01em}
+.btn:hover{background:var(--red-2)}
+.btn.ghost{background:transparent;color:var(--cream);border:2px solid var(--navy-2)}
+.btn.ghost:hover{border-color:#3A4870}
+.btn.light{background:var(--navy);color:var(--cream)}
+.btn.light:hover{background:var(--navy-2)}
+.btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn[disabled]{opacity:.4;cursor:default}
+section{display:none}section.active{display:block}
+.brief{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.brief h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1;letter-spacing:-.02em;color:var(--navy);margin:0 0 6px}
+.brief .sub{color:var(--muted);margin:0 0 16px}
+pre#out{font-family:var(--mono);font-size:13.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;background:var(--cream);border-radius:10px;padding:18px;margin:0;color:var(--ink);max-height:60vh;overflow:auto}
+.steps5{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.steps5 li{background:var(--cream-2);border-radius:10px;padding:12px;font-size:13px;line-height:1.35}
+.steps5 li b{display:block;font-family:var(--display);font-weight:800;font-size:15px;color:var(--navy);margin-bottom:4px}
+.steps5 li .n{font-family:var(--mono);font-size:11px;color:var(--red)}
+footer{margin-top:40px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer a{color:var(--red)}
+.red{color:var(--red)}
+@media(max-width:640px){.panel{padding:22px 18px}.steps5{grid-template-columns:1fr 1fr}.btns{width:100%}.btn{flex:1;text-align:center}}
+@media(prefers-reduced-motion:no-preference){section.active{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><span>five questions before the AI builds</span><a href="https://aunysillyme.com" target="_blank" rel="noopener">by auny</a></div>
+  <h1>wat we <span>building?</span></h1>
+  <p class="lede">Most vibe-coded builds sink before the first prompt, because nobody said what "done" looks like. Answer five questions. Get a brief you paste into any coding agent.</p>
+</header>
+
+<div class="track" id="track"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="stepline" id="stepline">question 1 of 5</div>
+
+<div id="steps"></div>
+
+<section id="result">
+  <div class="brief">
+    <h2>your build brief</h2>
+    <p class="sub">Paste this as the first message to your coding agent. It carries the finish line, the must-do list, the angle, the box, and the proof.</p>
+    <pre id="out"></pre>
+    <div class="bar">
+      <span class="hint" style="color:var(--muted)" id="copied"></span>
+      <div class="btns"><button class="btn ghost" style="color:var(--navy);border-color:var(--line)" id="editBtn">Edit answers</button><button class="btn light" id="dlBtn">Download .md</button><button class="btn" id="copyBtn">Copy brief</button></div>
+    </div>
+  </div>
+  <ol class="steps5">
+    <li><span class="n">01</span><b>Finish line</b>Name what exists when it's done.</li>
+    <li><span class="n">02</span><b>Must-dos</b>List every clause. Walk it again before you ship.</li>
+    <li><span class="n">03</span><b>Angle</b>What everyone builds, and what actually goes wrong.</li>
+    <li><span class="n">04</span><b>The box</b>Stack, and what it's not allowed to need.</li>
+    <li><span class="n">05</span><b>Proof</b>What you open cold and do to call it working.</li>
+  </ol>
+</section>
+
+<footer><span>Built live in 30 min for CampAI S2E15 with Claude Code. No accounts, nothing leaves your browser.</span><a href="https://github.com/aunysillyme/wat-we-building" target="_blank" rel="noopener">source</a></footer>
+</div>
+
+<script>
+const Q=[
+{k:"01 · finish line",h:"What exists when it's done?",why:"One sentence. A link, a file, a screen somebody uses. If you can't name it, the AI can't reach it, so it stops wherever it feels like and calls that done.",ex:"<b>e.g.</b> A one-page site at /tracker where I add a habit, refresh, and it's still there.",ph:"When it's done, there is a…",type:"input"},
+{k:"02 · must-dos",h:"What must it do? One per line.",why:"Every clause of the ask, as a list. This list is the test you walk again before you ship. Skipping it is how half a brief goes unbuilt and nobody notices.",ex:"<b>e.g.</b> add a habit · tick it off daily · survives refresh · works on my phone",ph:"add a habit\ntick it off each day\nsurvives a refresh\nworks on a phone",type:"area"},
+{k:"03 · angle",h:"What's the obvious version, and what actually goes wrong for the person using it?",why:"Everyone ships the obvious build. Read the ask as a symptom. The thing that fails in real life is the thing worth building.",ex:"<b>e.g.</b> Obvious: a checklist. What goes wrong: people quit on day 4 and the app just shows an empty box.",ph:"Obvious version: …\nWhat really goes wrong: …",type:"area"},
+{k:"04 · the box",h:"What are you building it with, and what is it not allowed to need?",why:"Pick the constraint first and let it delete options. One file, no framework, no login, no database: each rule you set is a bug you never ship.",ex:"<b>e.g.</b> One HTML file. No framework, no build step, no accounts. Saves to localStorage.",ph:"Stack: …\nNot allowed to need: …",type:"area"},
+{k:"05 · proof",h:"How will you know it works? What do you open cold and do?",why:"Tests prove the mechanism. Only using it proves the journey. Name the walk: open the link in a private window, do the thing, see the result. A feature you can't reach doesn't exist.",ex:"<b>e.g.</b> Private window, add 'water', close tab, reopen, 'water' is still there. Then on my phone.",ph:"Open …, then …, and I should see …",type:"area"}
+];
+const KEY='wwb.answers';
+let ans=[];try{ans=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){ans=[]}
+if(!Array.isArray(ans))ans=[];
+const host=document.getElementById('steps');
+Q.forEach((q,i)=>{
+  const s=document.createElement('section');s.id='q'+i;
+  const field=q.type==='input'?`<input type="text" id="a${i}" placeholder="${q.ph}" autocomplete="off">`:`<textarea id="a${i}" placeholder="${q.ph.replace(/"/g,'&quot;')}"></textarea>`;
+  s.innerHTML=`<div class="panel"><div class="k">${q.k}</div><h2>${q.h}</h2><p class="why">${q.why}</p><p class="ex">${q.ex}</p>${field}
+  <div class="bar"><span class="hint" id="h${i}">Write it plain. Your AI reads this, not a judge.</span><div class="btns"><button class="btn ghost" data-prev ${i===0?'disabled':''}>Back</button><button class="btn" data-next>${i===Q.length-1?'Build the brief':'Next'}</button></div></div></div>`;
+  host.appendChild(s);
+  const el=s.querySelector('#a'+i);el.value=ans[i]||'';
+  el.addEventListener('input',()=>{ans[i]=el.value;save()});
+  s.querySelector('[data-prev]').addEventListener('click',()=>go(i-1));
+  s.querySelector('[data-next]').addEventListener('click',()=>{if(!el.value.trim()){document.getElementById('h'+i).textContent='Answer this one first. A blank here is a blank in the build.';document.getElementById('h'+i).style.color='#F0A5AE';el.focus();return}i===Q.length-1?finish():go(i+1)});
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'&&(q.type==='input'||e.metaKey||e.ctrlKey)){e.preventDefault();s.querySelector('[data-next]').click()}});
+});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ans))}catch(e){}}
+let cur=0;
+function go(i){cur=Math.max(0,Math.min(Q.length-1,i));document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('q'+cur).classList.add('active');document.querySelectorAll('#track i').forEach((t,k)=>{t.className=k<cur?'done':k===cur?'on':''});document.getElementById('stepline').textContent=`question ${cur+1} of 5`;setTimeout(()=>document.getElementById('a'+cur).focus(),50)}
+function lines(t){return t.split('\n').map(x=>x.trim()).filter(Boolean)}
+function brief(){
+  const must=lines(ans[1]||'').map(x=>'- '+x.replace(/^[-*•]\s*/,'')).join('\n');
+  return `# wat we building?
+
+## 1. Finish line
+When this is done, there is: ${ans[0].trim()}
+Do not stop before that exists. Do not add anything that is not on the list below.
+
+## 2. Must-dos (each one is a test)
+${must}
+Before you say "done", walk this list top to bottom and show me each one working.
+
+## 3. Angle
+${ans[2].trim()}
+Build for what actually goes wrong, not the obvious version.
+
+## 4. The box
+${ans[3].trim()}
+If something needs more than this, stop and ask before adding it.
+
+## 5. Proof
+${ans[4].trim()}
+Do this walk yourself, cold, before reporting. Tell me what you opened, what you did, and what you saw. "It works" with no walk is not a report.
+
+## Rules for you (the agent)
+- Say what you did not build, out loud. Never fold a skipped clause into the pitch.
+- If a search or check returns empty, prove the check actually ran before trusting it.
+- If two fixes fail on the same bug, stop and measure instead of trying a third.
+- Never print a key, token or password. Verify by length or a live probe.
+- Success is a read-back of the artifact (open the URL, open the file), not a message.`;
+}
+function finish(){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById('result').classList.add('active');document.querySelectorAll('#track i').forEach(t=>t.className='done');document.getElementById('stepline').textContent='brief ready';document.getElementById('out').textContent=brief();window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('editBtn').addEventListener('click',()=>go(0));
+document.getElementById('copyBtn').addEventListener('click',async()=>{const c=document.getElementById('copied');try{await navigator.clipboard.writeText(brief());c.textContent='Copied. Paste it as your first message.'}catch(e){c.textContent='Select the text above and copy it.'}});
+document.getElementById('dlBtn').addEventListener('click',()=>{const b=new Blob([brief()],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='wat-we-building.md';document.body.appendChild(a);a.click();a.remove()});
+go(0);
+</script>
+</body>
+</html>
