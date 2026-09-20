@@ -1,0 +1,9 @@
+# Verification output, not application dependencies.
+tests/frontend-extracted.js
+tests/mobile-agent.png
+tests/live-*-request.json
+tests/live-*-response.json
+tests/claude-review.txt
+worker/.wrangler/
+tests/worker-bundle/
+worker/tests/

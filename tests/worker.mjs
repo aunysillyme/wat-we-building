@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import worker from '../worker/src/index.js';
+const origin='https://aunysillyme.github.io',html='<!doctype html><html><body>working</body></html>';
+let seq=0,calls=[];
+const env={AI:{run:async(model,args)=>{calls.push({model,args});return {response:args.messages[0].content.includes('one-page build plans')?'## build order\n1. Build the form':html}}}};
+function req(path,body,headers={},method='POST'){return new Request('https://example.test'+path,{method,headers:{Origin:origin,'cf-connecting-ip':'test-'+(++seq),'content-type':'application/json',...headers},...(method==='POST'?{body:JSON.stringify(body)}:{})})}
+async function check(path,body,status=200,headers={},e=env){const r=await worker.fetch(req(path,body,headers),e);assert.equal(r.status,status);return r.json()}
+assert.equal((await check('/plan',{answers:['one','two','three','four','five']})).plan,'## build order\n1. Build the form');
+assert.equal((await check('/build',{brief:'Build a form.\n## Bot build order\n1. Field first'})).html,html);
+assert.match(calls.at(-1).args.messages[1].content,/Field first/);
+assert.equal((await check('/revise',{html,brief:'A form',request:'Fix the empty submit error'})).html,html);
+assert.match(calls.at(-1).args.messages[0].content,/Edit ONLY/);assert.match(calls.at(-1).args.messages[1].content,/Fix the empty submit error/);
+console.log('PASS endpoints: plan, build with build order, scoped revise');
+for(const body of [null,[],{}, {brief:123}])await check('/build',body,400);
+await check('/plan',{answers:['a','b','c','d',7]},400);
+await check('/build',{brief:'é'.repeat(3073)},413);
+await check('/build',{brief:'a'.repeat(6144)});
+await check('/revise',{html:'x'.repeat(204801),brief:'b',request:'r'},413);
+await check('/revise',{html,brief:'b',request:' '},400);
+await check('/revise',{html:'<html>partial',brief:'b',request:'r'},400);
+for(const Origin of ['https://evil.test','null',''])await check('/build',{brief:'x'},403,{Origin});
+const absent=new Request('https://example.test/build',{method:'POST',body:'{}'});assert.equal((await worker.fetch(absent,env)).status,403);
+assert.equal((await worker.fetch(req('/build',{}, {},'OPTIONS'),env)).status,204);
+for(let i=0;i<10;i++)await check('/build',{brief:'x'},200,{'cf-connecting-ip':'limited'});
+await check('/revise',{html,brief:'x',request:'r'},429,{'cf-connecting-ip':'limited'});
+const realNow=Date.now;Date.now=()=>realNow()+60001;await check('/build',{brief:'x'},200,{'cf-connecting-ip':'limited'});Date.now=realNow;
+const badJSON=new Request('https://example.test/build',{method:'POST',headers:{Origin:origin},body:'{'});assert.equal((await worker.fetch(badJSON,env)).status,400);
+console.log('PASS abuse: Origin, preflight, typed payloads, UTF-8 caps, shared 10/60s limit and reset');
+const truncated={AI:{run:async()=>({response:'<!doctype html><html><body>unfinished'})}};
+await check('/build',{brief:'x'},502,{},truncated);await check('/revise',{html,brief:'x',request:'r'},502,{},truncated);
+let tries=0;const fallback={AI:{run:async()=>({response:++tries===1?'<html>unfinished':'Here is the file:\n```html\n'+html+'\n```'})}};
+assert.equal((await check('/build',{brief:'x'},200,{},fallback)).html,html);assert.equal(tries,2);
+await check('/build',{brief:'x',padding:'x'.repeat(1400*1024)},413);
+console.log('PASS incomplete replies rejected; shared fence extraction and 8B fallback; bounded request stream');
