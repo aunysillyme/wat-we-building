@@ -99,3 +99,20 @@ Show it once, with a **one rule for next time** line.
 
 ## Report format (required)
 A coverage table: each of F1-F10 and each "also fix" item → IMPLEMENTED / PARTIAL / MISSING, plus the proof (the command you ran and what it returned). Then anything you chose not to do and why.
+
+## Task bundle
+**Purpose.** Implement ten named features (F1-F10) plus four fixes in the live `wat we building?` repo at https://github.com/aunysillyme/wat-we-building, so a first-time builder is walked from a vague idea to a brief, a built app, a verified proof walk and a scoped repair loop. Owner: Auny (aunysillyme). This is a real public site on GitHub Pages plus a live Cloudflare Worker; both must still work when you finish.
+
+**Denied actions.** Absence is not permission.
+- No framework, bundler, npm dependency, build step, or external script/stylesheet beyond the Google Fonts link already in `index.html`.
+- No new colours, fonts or design language outside the existing CSS variables.
+- No accounts, analytics, telemetry, cookies, or any third-party network call.
+- No secrets, tokens or keys in code, output or commit. Never print a secret value.
+- No force-push, no history rewrite, no branch deletion, no repo settings change, no new repo.
+- Do not touch any path outside this repo clone. Do not deploy anything except the existing `wat-we-building-bot` Worker.
+- Do not change the Worker's name, routes, or the `[ai]` binding, and do not add a paid binding or service.
+- Do not delete or rewrite `index.html` wholesale; extend the existing structure and globals.
+- Do not put generated HTML in a URL, and do not add a backend store for the share feature.
+- Do not remove existing working features (the five questions, the sample, the brief, `/plan`, `/build`).
+
+**Report contract.** A coverage table: each of F1-F10 and each of the four "also fix" items → IMPLEMENTED / PARTIAL / MISSING, each with its proof (the exact command run and what it returned). Then: the commit SHA you pushed, the Worker deploy output line, the results of the four verification steps above, and an explicit list of anything you chose NOT to do and why. State plainly if a verification step could not be run rather than implying it passed.
