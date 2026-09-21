@@ -122,3 +122,11 @@ Probe each endpoint with real JSON and the allowed Origin header, then commit an
 ## Source of truth
 
 `BUILD_BRIEF.md` is the requested behavior, `index.html` is the frontend, `worker/src/index.js` is the endpoint implementation and `worker/wrangler.toml` preserves the deployment name and binding. This README is the single end-to-end operating document. Verification evidence and any environment blockers are recorded in `VERIFICATION.md`; unrun live behavior is UNVERIFIED.
+
+## Built for Camp AI
+
+Made in a 30-minute live build window for **[Camp AI](https://campai.space)**, Season 2, Episode 15, theme "teach someone how to code with AI agents".
+
+Camp AI is run by Cortex Research Group: a theme drops, everyone builds against the clock, then everyone rates everyone. It is the reason this exists, and the 30 minutes is the point.
+
+Shout out to Mansa for running it: [@NFTmansa](https://x.com/NFTmansa) on X, [NFTcolumn](https://github.com/NFTcolumn) on GitHub. The platform itself is open source under MIT: [cortexresearch/camp-ai-platform](https://github.com/cortexresearch/camp-ai-platform).
